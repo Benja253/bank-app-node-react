@@ -12,12 +12,14 @@ export const login = (accountNumber, password) => {
 			const user = {
 				userId: loginUser.data.data.userId,
 				amount: loginUser.data.data.amount,
-				accountNumber: loginUser.data.data.accountNumber
+				accountNumber: loginUser.data.data.accountNumber,
+				name: loginUser.data.data.name
 			}
 
 			localStorage.setItem("userId", user.userId)
 			localStorage.setItem("accountNumber", user.accountNumber)
 			localStorage.setItem("amount", user.amount)
+			localStorage.setItem("name", user.name)
 
 
 			dispatch(usersActions.login(user));
@@ -38,7 +40,8 @@ export const signup = (name, password) => {
 			const userCreated = {
 				userId: res.data.data.userId,
 				amount: res.loginUser.data.data.amount,
-				accountNumber: res.loginUser.data.data.accountNumber
+				accountNumber: res.loginUser.data.data.accountNumber,
+				name: res.data.data.name
 			}
 
 			dispatch(usersActions.login(userCreated))

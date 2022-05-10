@@ -26,7 +26,8 @@ const createUser = catchAsync(async(req, res, next) => {
     data: {
       userId: newUser.id,
       accountNumber: newUser.accountNumber,
-      amount: newUser.amount
+      amount: newUser.amount,
+      name: newUser.name
     }
   })
 })
@@ -42,7 +43,8 @@ const loginUser = catchAsync(async(req, res, next) => {
       data: {
         userId: userIsExists.id,
         accountNumber: userIsExists.accountNumber,
-        amount: userIsExists.amount
+        amount: userIsExists.amount,
+        name: userIsExists.name
       }
     })
   } else {
@@ -56,8 +58,6 @@ const getTotalTransferByUser = catchAsync(async (req, res, next) => {
   const { user } = req
 
   const transfersUser = await Transfer.findAll({where: { userId: user.id }})
-
-  console.log(transfersUser)
   
   if(!transfersUser){
     return res.status(404).json({
@@ -65,6 +65,7 @@ const getTotalTransferByUser = catchAsync(async (req, res, next) => {
       message: "This user haven't transfers"
     })
   }
+
   res.status(200).json({
     status: 'success',
     data : {

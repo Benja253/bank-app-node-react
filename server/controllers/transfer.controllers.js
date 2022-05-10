@@ -25,7 +25,8 @@ const createTransfer = catchAsync(async(req, res, next) => {
   const transfer = await Transfer.create({
     amount: amountTransfer,
     userId: userHasSent.id,
-    receiverUserId: userHasReceived.id
+    receiverUserId: userHasReceived.id,
+    userNameReceiver: userHasReceived.name
   })
 
   res.status(201).json({

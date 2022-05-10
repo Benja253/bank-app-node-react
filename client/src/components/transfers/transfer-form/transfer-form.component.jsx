@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Redux actions
-import { newTransfer } from '../../../store/actions/transfers.actions';
+import { newTransfer, getUsersTransfers } from '../../../store/actions/transfers.actions';
 
 // Components
 import Modal from '../../ui/modal/modal.component';
@@ -13,26 +13,25 @@ import classes from './transfer-form.module.css';
 
 const TransferForm = ({ onHideModal }) => {
 	const dispatch = useDispatch();
-	const user = useSelector(state => state.users.user);
 
 	// Refs
 	const accountInputRef = useRef();
 	const amountInputRef = useRef();
 
 	const submitHandler = e => {
-		e.preventDefault();
-		dispatch(newTransfer(accountInputRef, amountInputRef))
-		const accountNumber = +accountInputRef.current.value;
-		const amount = +amountInputRef.current.value;
+    e.preventDefault();
 
-		if (!accountNumber || !amount) {
-			return;
-		}
+    const accountNumber = +accountInputRef.current.value;
+    const amount = +amountInputRef.current.value;
 
-		dispatch(newTransfer(user.accountNumber, accountNumber, amount));
+    if (!accountNumber || !amount) {
+      return;
+    }
 
-		onHideModal();
-	};
+    dispatch(newTransfer(accountNumber, amount));
+		dispatch(getUsersTransfers(localStorage.getItem('userId')))
+    onHideModal();
+  };
 
 	return (
 		<Modal onClick={onHideModal}>

@@ -1,7 +1,7 @@
 import classes from './transfer-item.module.css';
 
 const TransferItem = ({ transfer }) => {
-	const formattedDate = new Date(transfer.date).toLocaleDateString('en-US', {
+	const formattedDate = new Date(transfer.createdAt).toLocaleDateString('en-US', {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',
@@ -11,7 +11,7 @@ const TransferItem = ({ transfer }) => {
 
 	return (
 		<div className={classes.transfer}>
-			<p className={classes['transfer__user']}>To: {transfer.user}</p>
+			<p className={classes['transfer__user']}>To: {transfer.userNameReceiver}</p>
 			<p className={classes['transfer__date']}>Date: {formattedDate}</p>
 			<p className={classes['transfer__amount']}>Amount: ${formattedAmount}</p>
 		</div>

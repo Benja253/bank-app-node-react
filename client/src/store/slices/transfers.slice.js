@@ -10,7 +10,7 @@ const transfersSlice = createSlice({
 	name: 'transfers',
 	reducers: {
 		getTransfers(state, action) {
-			state.transfers = action.payload.transfers;
+			state.transfers = action.payload;
 		},
 		newTransfer(state, action) {
 			const updatedTransfers = state.transfers.concat(

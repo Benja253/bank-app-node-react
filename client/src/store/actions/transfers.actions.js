@@ -7,26 +7,24 @@ const API_URL = 'http://localhost:4000/api/v1';
 export const getUsersTransfers = userId => {
 	return async dispatch => {
 		try {
-			// API REQUEST
-			dispatch(transfersActions.getTransfers());
+
+			const userTransferHistory = await axios.get(`${API_URL}/users/${userId}/history`)
+	
+			dispatch(transfersActions.getTransfers(userTransferHistory.data.data.transfersUser));
+
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
 
-export const newTransfer = (accountNumber, amount) => {
+export const newTransfer = (accountNumberReceiver, amountTransfer) => {
 	return async dispatch => {
-		const accountNumberSent = localStorage.getItem('accountNumber')
 		try {
-			const res = await axios.post(`${API_URL}/transfers`, {
-				accountNumberSent,
-				accountNumberReceiver: accountNumber,
-				amountTransfer: amount
+			const accountNumberSent = localStorage.getItem('accountNumber')
+			const res = await axios.post(`${API_URL}/transfers`, { 
+				accountNumberSent, accountNumberReceiver, amountTransfer 
 			})
-
-			console.log(res)
-
 			dispatch(transfersActions.newTransfer());
 		} catch (error) {
 			console.log(error);

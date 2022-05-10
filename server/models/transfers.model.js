@@ -20,6 +20,10 @@ const Transfer = db.define('transfer', {
   receiverUserId: {
     allowNull: false,
     type: DataTypes.INTEGER
+  },
+  userNameReceiver: {
+    allowNull:false,
+    type: DataTypes.STRING
   }
 })
 
